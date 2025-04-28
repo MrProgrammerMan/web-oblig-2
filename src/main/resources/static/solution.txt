@@ -1,0 +1,13 @@
+# Part 1
+## Task 1
+@RequestMapping is a class annotation that creates a "parent" route for all routes defined my methods in the class.
+This means that several different mappings of different http methods(get, pots, put, delete) can be places under a prefix, like "/admin/".
+@GetMapping marks a method as a handler for an http GET request made to the specified endpoint.
+
+## Task 2
+Solution in UsersController.java.
+
+## Task 3
+A queue is a good data structure that typically follows FIFO principle.
+
+## Task 4
