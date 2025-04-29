@@ -23,6 +23,20 @@ main > div {
     background-color: white;
 }
 
+.error {
+    position: relative;
+}
+
+.error::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 4px;
+    color: red;
+}
+
 form {
     display: flex;
     flex-direction: column;

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<script type="module">
+    document.getElementById("verificationForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+            let response = await fetch("/verifyid", {
+                method: "POST",
+                body: new FormData(event.target)
+            });
+
+            console.log(response);
+
+            if (response.ok) {
+                let data = await response.json();
+                console.log(data);
+                if (data.found === false) {
+                    document.getElementById("city").innerText = "--";
+                    document.getElementById("branch").innerText = "--";
+                    alert("ID not found", data.errorMessage);
+                    return;
+                }
+                document.getElementById("city").innerText = data.person.city;
+                document.getElementById("branch").innerText = data.person.branch;
+            } else {
+                alert("Error: " + response.error);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    });
+</script>
+<body>
+    <main>
+        <div class="error">
+            <h1>Verification</h1>
+            <form id="verificationForm">
+                <label for="id">ID number:</label>
+                <input type="number" id="id" name="id" placeholder="Enter your ID number">
+                <label for="barcode">Barcode ID:</label>
+                <input type="number" id="barcode" name="barcode" placeholder="Enter your barcode ID">
+                <button type="submit">Login</button>
+            </form>
+            <p>City: <span id="city">--</span></p>
+            <p>Branch: <span id="branch">--</span></p>
+        </div>
+    </main>
+</body>
+</html>
